@@ -1,20 +1,21 @@
-name: test targets workflow
+name: test etl workflow
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  # push:
+  #   branches: [main, master]
+  # pull_request:
+  #   branches: [main, master]
   workflow_dispatch:
 
 jobs:
-  test-targets-workflow:
+  test-etl-workflow:
     runs-on: ubuntu-latest
-    container: rocker/tidyverse:4.5.1
+    container: rocker/tidyverse:4.6.0
     env:
+      GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
       GIT_CRYPT_KEY64: ${{ secrets.GIT_CRYPT_KEY64 }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Install system dependencies
         run: |
