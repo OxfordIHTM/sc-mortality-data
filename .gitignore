@@ -18,5 +18,5 @@ auth
 
 .env_user
 
-#/tests/
+/tests/
 !/tests/.gitkeep
