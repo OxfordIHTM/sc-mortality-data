@@ -8,7 +8,8 @@ llm_extract_data <- function(extractor,
                              type,
                              model, 
                              ollama = FALSE, 
-                             max_tries = 3L) {
+                             max_tries = 3L,
+                             test_mode = FALSE) {
   model <- stringr::str_extract(
     string = model, pattern = "gemini|claude|gpt|qwen|llama"
   )
@@ -47,6 +48,14 @@ llm_extract_data <- function(extractor,
       }
     )
   }
-  
+
+  if (test_mode) {
+    out <- tibble::tibble(
+      out,
+      image = image
+    )
+  }
+
   out
 }
+

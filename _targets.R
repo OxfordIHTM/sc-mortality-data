@@ -9,7 +9,9 @@ for (f in list.files(here::here("R"), full.names = TRUE)) source (f)
 ## Build options ----
 
 ### Set Google credentials ----
-gargle::credentials_service_account(path = Sys.getenv("GOOGLE_AUTH_FILE"))
+if (Sys.getenv("GOOGLE_AUTH_FILE") != "") {
+  gargle::credentials_service_account(path = Sys.getenv("GOOGLE_AUTH_FILE"))
+}
 
 
 ## Data targets
@@ -181,7 +183,8 @@ claude_targets <- tar_plan(
       image = jpeg_image_paths,
       type = extraction_output_type,
       model = claude_model,
-      ollama = FALSE
+      ollama = FALSE,
+      test_mode = TRUE
     ),
     pattern = sample(jpeg_image_paths, 10)
   ),
@@ -217,7 +220,8 @@ gemini_targets <- tar_plan(
       image = jpeg_image_paths,
       type = extraction_output_type,
       model = gemini_model,
-      ollama = FALSE
+      ollama = FALSE,
+      test_mode = TRUE
     ),
     pattern = sample(jpeg_image_paths, 10)
   ),
@@ -249,7 +253,9 @@ analysis_targets <- tar_plan(
 
 ## Output targets
 output_targets <- tar_plan(
-  
+  tar_target(
+    name = 
+  )
 )
 
 
