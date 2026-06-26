@@ -6,6 +6,12 @@ suppressPackageStartupMessages(source("packages.R"))
 for (f in list.files(here::here("R"), full.names = TRUE)) source (f)
 
 
+## Build options ----
+
+### Set Google credentials ----
+gargle::credentials_service_account(path = Sys.getenv("GOOGLE_AUTH_FILE"))
+
+
 ## Data targets
 data_targets <- tar_plan(
   tar_target(
@@ -26,15 +32,199 @@ data_targets <- tar_plan(
     )
   ),
   tar_target(
+    name = pdf_page_index,
+    command = tibble::tibble(
+      pdf = rep(pdf_file_paths, times = lengths(pdf_page_numbers)), 
+      page = unlist(pdf_page_numbers)
+    )
+  ),
+  tar_target(
     name = jpeg_image_paths,
-    command = convert_pdf_to_images(
-      pdf = pdf_file_paths, 
+    command = convert_pdf_to_image(
+      pdf = pdf_page_index$pdf, 
       format = "jpeg", 
-      page = pdf_page_numbers, 
+      page = pdf_page_index$page, 
       destdir = "data-raw/jpg", 
       dpi = 150
     ),
-    pattern = map(pdf_file_paths, pdf_page_numbers)
+    pattern = map(pdf_page_index),
+    format = "file"
+  )
+)
+
+
+## LLM targets ----
+llm_targets <- tar_plan(
+  ### LLM parameters ----
+  tar_target(
+    name = llm_parameters,
+    command = ellmer::params(
+      temperature = 0.3,
+      top_p = 0.95,
+      top_k = 64
+    )
+  ),
+  task_extraction_prompt_md = "prompts/task_extraction_prompt.md",
+  tar_target(
+    name = task_extraction_prompt,
+    command = ellmer::interpolate_file(path = task_extraction_prompt_md)
+  ),
+  ### LLM extraction output type ----
+  tar_target(
+    name = extraction_output_type,
+    command = llm_create_data_type()
+  )
+)
+
+
+## qwen extraction targets ----
+qwen_local_targets <- tar_plan(
+  tar_target(
+    name = local_qwen_model,
+    command = get_llm_name(src = "qwen3-vl"),
+    cue = tar_cue("always")
+  ),
+  tar_target(
+    name = qwen_extractor,
+    command = ellmer::chat_ollama(
+      system_prompt = task_extraction_prompt, 
+      model = local_qwen_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = qwen_test_extraction,
+    command = llm_extract_data(
+      extractor = qwen_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_qwen_model,
+      ollama = TRUE
+    ),
+    pattern = slice(jpeg_image_paths, 1:3)
+  ),
+  tar_target(
+    name = qwen_extraction,
+    command = llm_extract_data(
+      extractor = qwen_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_qwen_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_image_paths)
+  )
+)
+
+
+## gemma extraction targets ----
+gemma_targets <- tar_plan(
+  tar_target(
+    name = local_gemma_model,
+    command = get_llm_name(src = "gemma4"),
+    cue = tar_cue("always")
+  ),
+  tar_target(
+    name = gemma_extractor,
+    command = ellmer::chat_ollama(
+      system_prompt = task_extraction_prompt, 
+      model = local_gemma_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = gemma_test_extraction,
+    command = llm_extract_data(
+      extractor = gemma_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_gemma_model,
+      ollama = TRUE
+    ),
+    pattern = slice(jpeg_image_paths, 1:3)
+  ),
+  tar_target(
+    name = gemma_extraction,
+    command = llm_extract_data(
+      extractor = gemma_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_gemma_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_image_paths)
+  )
+)
+
+
+##  claude model targets ----
+claude_targets <- tar_plan(
+  claude_model = "claude-opus-4-8",
+  tar_target(
+    name = claude_extractor,
+    command = ellmer::chat_claude(
+      system_prompt = task_extraction_prompt,
+      model = claude_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = claude_test_extraction,
+    command = llm_extract_data(
+      extractor = claude_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = claude_model,
+      ollama = FALSE
+    ),
+    pattern = slice(jpeg_image_paths, 1:3)
+  ),
+  tar_target(
+    name = claude_extraction,
+    command = llm_extract_data(
+      extractor = claude_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = claude_model,
+      ollama = FALSE
+    ),
+    pattern = map(jpeg_image_paths)
+  )
+)
+
+
+##  gemini model targets ----
+gemini_targets <- tar_plan(
+  gemini_model = "gemini-pro-latest",
+  tar_target(
+    name = gemini_extractor,
+    command = ellmer::chat_google_gemini(
+      system_prompt = task_extraction_prompt,
+      model = gemini_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = gemini_test_extraction,
+    command = llm_extract_data(
+      extractor = gemini_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = gemini_model,
+      ollama = FALSE
+    ),
+    pattern = slice(jpeg_image_paths, 1:3)
+  ),
+  tar_target(
+    name = gemini_extraction,
+    command = llm_extract_data(
+      extractor = gemini_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = gemini_model,
+      ollama = FALSE
+    ),
+    pattern = map(jpeg_image_paths)
   )
 )
 

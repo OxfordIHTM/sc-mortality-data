@@ -13,3 +13,8 @@ data-raw
 
 data
 !data/.gitkeep
+
+auth
+
+.env_user
+

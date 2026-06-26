@@ -26,3 +26,9 @@ library(ollamar)
 
 ## Graphics packages ----
 library(magick)
+
+
+## Packages for Google integration ----
+library(googledrive)
+library(googlesheets4)
+library(gargle)
