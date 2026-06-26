@@ -254,7 +254,15 @@ analysis_targets <- tar_plan(
 ## Output targets
 output_targets <- tar_plan(
   tar_target(
-    name = 
+    name = extraction_test_results_xlsx,
+    command = output_test_results(
+      extraction_test_results = list(
+        claude = claude_test_extraction,
+        gemini = gemini_test_extraction
+      ),
+      output_file = "tests/extraction_test_results.xlsx",
+      overwrite = TRUE
+    )
   )
 )
 
