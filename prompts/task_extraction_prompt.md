@@ -37,5 +37,13 @@ You must populate the following JSON object.
   "age": 67,
   "age_unit": "years",
   "cause_of_death": "Stroke"
+},
+{
+  "record_number": "3",
+  "date": "2023-10-03",
+  "sex": "Female",
+  "age": NULL,
+  "age_unit": NULL,
+  "cause_of_death": "Cancer"
 }
 ```

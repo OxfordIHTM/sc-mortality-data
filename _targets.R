@@ -64,7 +64,13 @@ llm_targets <- tar_plan(
       top_k = 64
     )
   ),
-  task_extraction_prompt_md = "prompts/task_extraction_prompt.md",
+  ### Path to LLM extraction prompt Markdown file ----
+  tar_target(
+    name = task_extraction_prompt_md,
+    command = "prompts/task_extraction_prompt.md",
+    cue = tar_cue("always")
+  ),
+  ### Interpolated LLM extraction prompt ----
   tar_target(
     name = task_extraction_prompt,
     command = ellmer::interpolate_file(path = task_extraction_prompt_md)
@@ -177,7 +183,7 @@ claude_targets <- tar_plan(
       model = claude_model,
       ollama = FALSE
     ),
-    pattern = slice(jpeg_image_paths, 1:3)
+    pattern = sample(jpeg_image_paths, 10)
   ),
   tar_target(
     name = claude_extraction,
@@ -213,7 +219,7 @@ gemini_targets <- tar_plan(
       model = gemini_model,
       ollama = FALSE
     ),
-    pattern = slice(jpeg_image_paths, 1:3)
+    pattern = sample(jpeg_image_paths, 10)
   ),
   tar_target(
     name = gemini_extraction,
