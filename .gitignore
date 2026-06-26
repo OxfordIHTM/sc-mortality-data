@@ -7,3 +7,9 @@ _targets
 docs
 
 README.html
+
+data-raw
+!data-raw/.gitkeep
+
+data
+!data/.gitkeep
