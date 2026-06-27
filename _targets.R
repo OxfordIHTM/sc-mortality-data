@@ -51,6 +51,10 @@ data_targets <- tar_plan(
     ),
     pattern = map(pdf_page_index),
     format = "file"
+  ),
+  tar_target(
+    name = jpeg_random_test_images,
+    command = sample(jpeg_image_paths, 10)
   )
 )
 
@@ -104,12 +108,12 @@ qwen_local_targets <- tar_plan(
     name = qwen_test_extraction,
     command = llm_extract_data(
       extractor = qwen_extractor,
-      image = jpeg_image_paths,
+      image = jpeg_random_test_images,
       type = extraction_output_type,
       model = local_qwen_model,
       ollama = TRUE
     ),
-    pattern = slice(jpeg_image_paths, 1:3)
+    pattern = map(jpeg_random_test_images)
   ),
   tar_target(
     name = qwen_extraction,
@@ -144,12 +148,12 @@ gemma_targets <- tar_plan(
     name = gemma_test_extraction,
     command = llm_extract_data(
       extractor = gemma_extractor,
-      image = jpeg_image_paths,
+      image = jpeg_random_test_images,
       type = extraction_output_type,
       model = local_gemma_model,
       ollama = TRUE
     ),
-    pattern = slice(jpeg_image_paths, 1:3)
+    pattern = map(jpeg_random_test_images)
   ),
   tar_target(
     name = gemma_extraction,
@@ -158,6 +162,46 @@ gemma_targets <- tar_plan(
       image = jpeg_image_paths,
       type = extraction_output_type,
       model = local_gemma_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_image_paths)
+  )
+)
+
+
+## deepseek extraction targets ----
+deepseek_targets <- tar_plan(
+  tar_target(
+    name = local_deepseek_model,
+    command = get_llm_name(src = "deepseek-ocr"),
+    cue = tar_cue("always")
+  ),
+  tar_target(
+    name = deepseek_extractor,
+    command = ellmer::chat_ollama(
+      system_prompt = task_extraction_prompt, 
+      model = local_deepseek_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = deepseek_test_extraction,
+    command = llm_extract_data(
+      extractor = deepseek_extractor,
+      image = jpeg_random_test_images,
+      type = extraction_output_type,
+      model = local_deepseek_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_random_test_images)
+  ),
+  tar_target(
+    name = deepseek_extraction,
+    command = llm_extract_data(
+      extractor = deepseek_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_deepseek_model,
       ollama = TRUE
     ),
     pattern = map(jpeg_image_paths)
@@ -180,13 +224,13 @@ claude_targets <- tar_plan(
     name = claude_test_extraction,
     command = llm_extract_data(
       extractor = claude_extractor,
-      image = jpeg_image_paths,
+      image = jpeg_random_test_images,
       type = extraction_output_type,
       model = claude_model,
       ollama = FALSE,
       test_mode = TRUE
     ),
-    pattern = sample(jpeg_image_paths, 10)
+    pattern = map(jpeg_random_test_images)
   ),
   tar_target(
     name = claude_extraction,
@@ -217,13 +261,13 @@ gemini_targets <- tar_plan(
     name = gemini_test_extraction,
     command = llm_extract_data(
       extractor = gemini_extractor,
-      image = jpeg_image_paths,
+      image = jpeg_random_test_images,
       type = extraction_output_type,
       model = gemini_model,
       ollama = FALSE,
       test_mode = TRUE
     ),
-    pattern = sample(jpeg_image_paths, 10)
+    pattern = map(jpeg_random_test_images)
   ),
   tar_target(
     name = gemini_extraction,
@@ -254,13 +298,24 @@ analysis_targets <- tar_plan(
 ## Output targets
 output_targets <- tar_plan(
   tar_target(
-    name = extraction_test_results_xlsx,
+    name = extraction_frontier_test_results_xlsx,
     command = output_test_results(
       extraction_test_results = list(
         claude = claude_test_extraction,
         gemini = gemini_test_extraction
       ),
-      output_file = "tests/extraction_test_results.xlsx",
+      output_file = "tests/extraction_frontier_test_results.xlsx",
+      overwrite = TRUE
+    )
+  ),
+  tar_target(
+    name = extraction_ollama_test_results_xlsx,
+    command = output_test_results(
+      extraction_test_results = list(
+        gemma = gemma_test_extraction,
+        qwen = qwen_test_extraction
+      ),
+      output_file = "tests/extraction_ollama_test_results.xlsx",
       overwrite = TRUE
     )
   )
@@ -277,6 +332,10 @@ report_targets <- tar_plan(
 deploy_targets <- tar_plan(
   
 )
+
+
+## Set seed for reproducibility ----
+set.seed(1977)
 
 
 ## List targets
