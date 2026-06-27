@@ -134,7 +134,7 @@ qwen_local_targets <- tar_plan(
 gemma_targets <- tar_plan(
   tar_target(
     name = local_gemma_model,
-    command = get_llm_name(src = "gemma3"),
+    command = get_llm_name(src = "gemma4"),
     cue = tar_cue("always")
   ),
   tar_target(
@@ -397,7 +397,10 @@ output_targets <- tar_plan(
     command = output_test_results(
       extraction_test_results = list(
         gemma = gemma_test_extraction,
-        qwen = qwen_test_extraction
+        #qwen = qwen_test_extraction,
+        deepseek = deepseek_test_extraction,
+        llava = llava_test_extraction,
+        glm = glm_test_extraction
       ),
       output_file = "tests/extraction_ollama_test_results.xlsx",
       overwrite = TRUE
