@@ -93,7 +93,7 @@ llm_targets <- tar_plan(
 qwen_local_targets <- tar_plan(
   tar_target(
     name = local_qwen_model,
-    command = get_llm_name(src = "qwen3-vl"),
+    command = get_llm_name(src = "qwen3-vl:235b"),
     cue = tar_cue("always")
   ),
   tar_target(
