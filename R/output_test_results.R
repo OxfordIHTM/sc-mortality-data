@@ -23,6 +23,12 @@ output_test_results <- function(extraction_test_results,
     MoreArgs = list(wb = wb)
   )
   
+  Map(
+    f = openxlsx::setColWidths,
+    sheet = sheetnames,
+    MoreArgs = list(wb = wb, cols = seq_len(7), widths = "auto")
+  )
+
   # Save the workbook to the specified output file
   openxlsx::saveWorkbook(wb, file = output_file, overwrite = overwrite)
  

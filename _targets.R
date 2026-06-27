@@ -111,7 +111,8 @@ qwen_local_targets <- tar_plan(
       image = jpeg_random_test_images,
       type = extraction_output_type,
       model = local_qwen_model,
-      ollama = TRUE
+      ollama = TRUE,
+      test_mode = TRUE
     ),
     pattern = map(jpeg_random_test_images)
   ),
@@ -151,7 +152,8 @@ gemma_targets <- tar_plan(
       image = jpeg_random_test_images,
       type = extraction_output_type,
       model = local_gemma_model,
-      ollama = TRUE
+      ollama = TRUE,
+      test_mode = TRUE
     ),
     pattern = map(jpeg_random_test_images)
   ),
@@ -191,7 +193,8 @@ deepseek_targets <- tar_plan(
       image = jpeg_random_test_images,
       type = extraction_output_type,
       model = local_deepseek_model,
-      ollama = TRUE
+      ollama = TRUE,
+      test_mode = TRUE
     ),
     pattern = map(jpeg_random_test_images)
   ),
@@ -230,7 +233,8 @@ llava_targets <- tar_plan(
       image = jpeg_random_test_images,
       type = extraction_output_type,
       model = local_llava_model,
-      ollama = TRUE
+      ollama = TRUE,
+      test_mode = TRUE
     ),
     pattern = map(jpeg_random_test_images)
   ),
@@ -270,7 +274,8 @@ glm_targets <- tar_plan(
       image = jpeg_random_test_images,
       type = extraction_output_type,
       model = local_glm_model,
-      ollama = TRUE
+      ollama = TRUE,
+      test_mode = TRUE
     ),
     pattern = map(jpeg_random_test_images)
   ),
