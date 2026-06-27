@@ -208,6 +208,85 @@ deepseek_targets <- tar_plan(
   )
 )
 
+## llava extraction targets ----
+llava_targets <- tar_plan(
+  tar_target(
+    name = local_llava_model,
+    command = get_llm_name(src = "llava"),
+    cue = tar_cue("always")
+  ),
+  tar_target(
+    name = llava_extractor,
+    command = ellmer::chat_ollama(
+      system_prompt = task_extraction_prompt, 
+      model = local_llava_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = llava_test_extraction,
+    command = llm_extract_data(
+      extractor = llava_extractor,
+      image = jpeg_random_test_images,
+      type = extraction_output_type,
+      model = local_llava_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_random_test_images)
+  ),
+  tar_target(
+    name = llava_extraction,
+    command = llm_extract_data(
+      extractor = llava_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_llava_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_image_paths)
+  )
+)
+
+
+## glm-ocr extraction targets ----
+glm_targets <- tar_plan(
+  tar_target(
+    name = local_glm_model,
+    command = get_llm_name(src = "glm-ocr"),
+    cue = tar_cue("always")
+  ),
+  tar_target(
+    name = glm_extractor,
+    command = ellmer::chat_ollama(
+      system_prompt = task_extraction_prompt, 
+      model = local_glm_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = glm_test_extraction,
+    command = llm_extract_data(
+      extractor = glm_extractor,
+      image = jpeg_random_test_images,
+      type = extraction_output_type,
+      model = local_glm_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_random_test_images)
+  ),
+  tar_target(
+    name = glm_extraction,
+    command = llm_extract_data(
+      extractor = glm_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_glm_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_image_paths)
+  )
+)
+
 
 ##  claude model targets ----
 claude_targets <- tar_plan(

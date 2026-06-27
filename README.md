@@ -226,65 +226,80 @@ graph LR
     x487a49d42720222c(["extraction_output_type"]):::skipped --> xbf558aaf2fd08c0e["claude_extraction"]:::queued
     x39d4d013227f0dc3(["claude_model"]):::skipped --> x35a7fe2b14fea884(["claude_extractor"]):::skipped
     xb325834072af39dd(["task_extraction_prompt"]):::skipped --> x35a7fe2b14fea884(["claude_extractor"]):::skipped
-    x35a7fe2b14fea884(["claude_extractor"]):::skipped --> x81a0ed3eae4cab62["claude_test_extraction"]:::skipped
-    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x81a0ed3eae4cab62["claude_test_extraction"]:::skipped
-    x487a49d42720222c(["extraction_output_type"]):::skipped --> x81a0ed3eae4cab62["claude_test_extraction"]:::skipped
-    x5dd88689b0601faa(["jpeg_random_test_images_index"]):::queued --> x81a0ed3eae4cab62["claude_test_extraction"]:::skipped
-    x39d4d013227f0dc3(["claude_model"]):::skipped --> x81a0ed3eae4cab62["claude_test_extraction"]:::skipped
-    x487a49d42720222c(["extraction_output_type"]):::skipped --> xb9f66fc85a4f1ea1["deepseek_extraction"]:::queued
+    x35a7fe2b14fea884(["claude_extractor"]):::skipped --> x81a0ed3eae4cab62["claude_test_extraction"]:::completed
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> x81a0ed3eae4cab62["claude_test_extraction"]:::completed
+    xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed --> x81a0ed3eae4cab62["claude_test_extraction"]:::completed
+    x39d4d013227f0dc3(["claude_model"]):::skipped --> x81a0ed3eae4cab62["claude_test_extraction"]:::completed
     xf407d53739ed0632(["deepseek_extractor"]):::queued --> xb9f66fc85a4f1ea1["deepseek_extraction"]:::queued
     xb957a37aad5b67c5(["local_deepseek_model"]):::queued --> xb9f66fc85a4f1ea1["deepseek_extraction"]:::queued
     x356f375d5695a155["jpeg_image_paths"]:::skipped --> xb9f66fc85a4f1ea1["deepseek_extraction"]:::queued
-    xb325834072af39dd(["task_extraction_prompt"]):::skipped --> xf407d53739ed0632(["deepseek_extractor"]):::queued
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> xb9f66fc85a4f1ea1["deepseek_extraction"]:::queued
     xb957a37aad5b67c5(["local_deepseek_model"]):::queued --> xf407d53739ed0632(["deepseek_extractor"]):::queued
-    xf407d53739ed0632(["deepseek_extractor"]):::queued --> xe59d676cc895fc8f["deepseek_test_extraction"]:::queued
-    x356f375d5695a155["jpeg_image_paths"]:::skipped --> xe59d676cc895fc8f["deepseek_test_extraction"]:::queued
+    xb325834072af39dd(["task_extraction_prompt"]):::skipped --> xf407d53739ed0632(["deepseek_extractor"]):::queued
+    xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed --> xe59d676cc895fc8f["deepseek_test_extraction"]:::queued
     xb957a37aad5b67c5(["local_deepseek_model"]):::queued --> xe59d676cc895fc8f["deepseek_test_extraction"]:::queued
+    xf407d53739ed0632(["deepseek_extractor"]):::queued --> xe59d676cc895fc8f["deepseek_test_extraction"]:::queued
     x487a49d42720222c(["extraction_output_type"]):::skipped --> xe59d676cc895fc8f["deepseek_test_extraction"]:::queued
-    x5dd88689b0601faa(["jpeg_random_test_images_index"]):::queued --> xe59d676cc895fc8f["deepseek_test_extraction"]:::queued
-    x81a0ed3eae4cab62["claude_test_extraction"]:::skipped --> x589437b8e31a1199(["extraction_test_results_xlsx"]):::completed
-    x0e93587b522df940["gemini_test_extraction"]:::skipped --> x589437b8e31a1199(["extraction_test_results_xlsx"]):::completed
+    x0e93587b522df940["gemini_test_extraction"]:::completed --> x561ce6c854132243(["extraction_frontier_test_results_xlsx"]):::completed
+    x81a0ed3eae4cab62["claude_test_extraction"]:::completed --> x561ce6c854132243(["extraction_frontier_test_results_xlsx"]):::completed
+    xd726feef05e5de04["qwen_test_extraction"]:::queued --> x62ea01978af452ed(["extraction_ollama_test_results_xlsx"]):::queued
+    x883eafa12b623704["gemma_test_extraction"]:::queued --> x62ea01978af452ed(["extraction_ollama_test_results_xlsx"]):::queued
     x487a49d42720222c(["extraction_output_type"]):::skipped --> xd63226de7dd05e61["gemini_extraction"]:::queued
     x672b0658cd7f304b(["gemini_model"]):::skipped --> xd63226de7dd05e61["gemini_extraction"]:::queued
-    x8cb7c7e0b9710ea2(["gemini_extractor"]):::skipped --> xd63226de7dd05e61["gemini_extraction"]:::queued
     x356f375d5695a155["jpeg_image_paths"]:::skipped --> xd63226de7dd05e61["gemini_extraction"]:::queued
-    xb325834072af39dd(["task_extraction_prompt"]):::skipped --> x8cb7c7e0b9710ea2(["gemini_extractor"]):::skipped
+    x8cb7c7e0b9710ea2(["gemini_extractor"]):::skipped --> xd63226de7dd05e61["gemini_extraction"]:::queued
     x672b0658cd7f304b(["gemini_model"]):::skipped --> x8cb7c7e0b9710ea2(["gemini_extractor"]):::skipped
-    x5dd88689b0601faa(["jpeg_random_test_images_index"]):::queued --> x0e93587b522df940["gemini_test_extraction"]:::skipped
-    x672b0658cd7f304b(["gemini_model"]):::skipped --> x0e93587b522df940["gemini_test_extraction"]:::skipped
-    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x0e93587b522df940["gemini_test_extraction"]:::skipped
-    x487a49d42720222c(["extraction_output_type"]):::skipped --> x0e93587b522df940["gemini_test_extraction"]:::skipped
-    x8cb7c7e0b9710ea2(["gemini_extractor"]):::skipped --> x0e93587b522df940["gemini_test_extraction"]:::skipped
+    xb325834072af39dd(["task_extraction_prompt"]):::skipped --> x8cb7c7e0b9710ea2(["gemini_extractor"]):::skipped
+    x672b0658cd7f304b(["gemini_model"]):::skipped --> x0e93587b522df940["gemini_test_extraction"]:::completed
+    x8cb7c7e0b9710ea2(["gemini_extractor"]):::skipped --> x0e93587b522df940["gemini_test_extraction"]:::completed
+    xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed --> x0e93587b522df940["gemini_test_extraction"]:::completed
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> x0e93587b522df940["gemini_test_extraction"]:::completed
     x356f375d5695a155["jpeg_image_paths"]:::skipped --> x2f31c96882d08d36["gemma_extraction"]:::queued
+    xba597cd142706396(["local_gemma_model"]):::queued --> x2f31c96882d08d36["gemma_extraction"]:::queued
     xbdacf1efe57d11ba(["gemma_extractor"]):::queued --> x2f31c96882d08d36["gemma_extraction"]:::queued
     x487a49d42720222c(["extraction_output_type"]):::skipped --> x2f31c96882d08d36["gemma_extraction"]:::queued
-    xba597cd142706396(["local_gemma_model"]):::queued --> x2f31c96882d08d36["gemma_extraction"]:::queued
     xba597cd142706396(["local_gemma_model"]):::queued --> xbdacf1efe57d11ba(["gemma_extractor"]):::queued
     xb325834072af39dd(["task_extraction_prompt"]):::skipped --> xbdacf1efe57d11ba(["gemma_extractor"]):::queued
     xbdacf1efe57d11ba(["gemma_extractor"]):::queued --> x883eafa12b623704["gemma_test_extraction"]:::queued
-    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x883eafa12b623704["gemma_test_extraction"]:::queued
     x487a49d42720222c(["extraction_output_type"]):::skipped --> x883eafa12b623704["gemma_test_extraction"]:::queued
+    xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed --> x883eafa12b623704["gemma_test_extraction"]:::queued
     xba597cd142706396(["local_gemma_model"]):::queued --> x883eafa12b623704["gemma_test_extraction"]:::queued
-    x5dd88689b0601faa(["jpeg_random_test_images_index"]):::queued --> x883eafa12b623704["gemma_test_extraction"]:::queued
+    x4d89d139c5b326de(["local_glm_model"]):::queued --> x16d463649734b662["glm_extraction"]:::queued
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> x16d463649734b662["glm_extraction"]:::queued
+    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x16d463649734b662["glm_extraction"]:::queued
+    x86c1ea9adbe526ba(["glm_extractor"]):::queued --> x16d463649734b662["glm_extraction"]:::queued
+    xb325834072af39dd(["task_extraction_prompt"]):::skipped --> x86c1ea9adbe526ba(["glm_extractor"]):::queued
+    x4d89d139c5b326de(["local_glm_model"]):::queued --> x86c1ea9adbe526ba(["glm_extractor"]):::queued
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> x18f94be61c65c2fd["glm_test_extraction"]:::queued
+    xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed --> x18f94be61c65c2fd["glm_test_extraction"]:::queued
+    x4d89d139c5b326de(["local_glm_model"]):::queued --> x18f94be61c65c2fd["glm_test_extraction"]:::queued
+    x86c1ea9adbe526ba(["glm_extractor"]):::queued --> x18f94be61c65c2fd["glm_test_extraction"]:::queued
     xe30d250b58d472b9(["pdf_page_index"]):::skipped --> x356f375d5695a155["jpeg_image_paths"]:::skipped
-    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x5dd88689b0601faa(["jpeg_random_test_images_index"]):::queued
-    x883eafa12b623704["gemma_test_extraction"]:::queued --> xef540feb84851536(["ollama_extraction_test_results_xlsx"]):::queued
-    xd726feef05e5de04["qwen_test_extraction"]:::queued --> xef540feb84851536(["ollama_extraction_test_results_xlsx"]):::queued
+    x356f375d5695a155["jpeg_image_paths"]:::skipped --> xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed
+    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x7d2a167978f3a966["llava_extraction"]:::queued
+    x0de051b4924b82bb(["llava_extractor"]):::queued --> x7d2a167978f3a966["llava_extraction"]:::queued
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> x7d2a167978f3a966["llava_extraction"]:::queued
+    x0621d4c5bb5ff06b(["local_llava_model"]):::queued --> x7d2a167978f3a966["llava_extraction"]:::queued
+    x0621d4c5bb5ff06b(["local_llava_model"]):::queued --> x0de051b4924b82bb(["llava_extractor"]):::queued
+    xb325834072af39dd(["task_extraction_prompt"]):::skipped --> x0de051b4924b82bb(["llava_extractor"]):::queued
+    x0de051b4924b82bb(["llava_extractor"]):::queued --> x9b13583cb72b43c0["llava_test_extraction"]:::queued
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> x9b13583cb72b43c0["llava_test_extraction"]:::queued
+    xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed --> x9b13583cb72b43c0["llava_test_extraction"]:::queued
+    x0621d4c5bb5ff06b(["local_llava_model"]):::queued --> x9b13583cb72b43c0["llava_test_extraction"]:::queued
     x93a61fdd58bab193(["pdf_file_paths"]):::skipped --> x93d7cb5e868222a3(["pdf_file_key"]):::skipped
     x93a61fdd58bab193(["pdf_file_paths"]):::skipped --> xe30d250b58d472b9(["pdf_page_index"]):::skipped
     xae7c35ce3ebe6878(["pdf_page_numbers"]):::skipped --> xe30d250b58d472b9(["pdf_page_index"]):::skipped
     x93d7cb5e868222a3(["pdf_file_key"]):::skipped --> xae7c35ce3ebe6878(["pdf_page_numbers"]):::skipped
-    x01ce8cbced893885(["local_qwen_model"]):::queued --> x5548d9f90749db86["qwen_extraction"]:::queued
     x487a49d42720222c(["extraction_output_type"]):::skipped --> x5548d9f90749db86["qwen_extraction"]:::queued
-    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x5548d9f90749db86["qwen_extraction"]:::queued
+    x01ce8cbced893885(["local_qwen_model"]):::queued --> x5548d9f90749db86["qwen_extraction"]:::queued
     x15a3fb4d9a651239(["qwen_extractor"]):::queued --> x5548d9f90749db86["qwen_extraction"]:::queued
+    x356f375d5695a155["jpeg_image_paths"]:::skipped --> x5548d9f90749db86["qwen_extraction"]:::queued
     x01ce8cbced893885(["local_qwen_model"]):::queued --> x15a3fb4d9a651239(["qwen_extractor"]):::queued
     xb325834072af39dd(["task_extraction_prompt"]):::skipped --> x15a3fb4d9a651239(["qwen_extractor"]):::queued
-    x487a49d42720222c(["extraction_output_type"]):::skipped --> xd726feef05e5de04["qwen_test_extraction"]:::queued
+    xd89fbb4a2ff13c8f(["jpeg_random_test_images"]):::completed --> xd726feef05e5de04["qwen_test_extraction"]:::queued
     x01ce8cbced893885(["local_qwen_model"]):::queued --> xd726feef05e5de04["qwen_test_extraction"]:::queued
     x15a3fb4d9a651239(["qwen_extractor"]):::queued --> xd726feef05e5de04["qwen_test_extraction"]:::queued
-    x5dd88689b0601faa(["jpeg_random_test_images_index"]):::queued --> xd726feef05e5de04["qwen_test_extraction"]:::queued
-    x356f375d5695a155["jpeg_image_paths"]:::skipped --> xd726feef05e5de04["qwen_test_extraction"]:::queued
+    x487a49d42720222c(["extraction_output_type"]):::skipped --> xd726feef05e5de04["qwen_test_extraction"]:::queued
     x1cd67464342adf29(["task_extraction_prompt_md"]):::completed --> xb325834072af39dd(["task_extraction_prompt"]):::skipped
     xa87a62a227d5e627(["llm_parameters"]):::queued
   end

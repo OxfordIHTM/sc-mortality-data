@@ -189,3 +189,4 @@ If you use the code, text, and/or data provided in this repository in your work/
 
  [^1]: The `llama3.2-vision:90b` model was used and tested but the extraction step continually failed to complete successfully. On further investigation, it was found that the current version of Ollama didn't support this specific model yet. The model was not used in the final workflow until the next version of Ollama.
  
+ 
