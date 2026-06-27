@@ -134,7 +134,7 @@ qwen_local_targets <- tar_plan(
 gemma_targets <- tar_plan(
   tar_target(
     name = local_gemma_model,
-    command = get_llm_name(src = "gemma4"),
+    command = get_llm_name(src = "gemma3"),
     cue = tar_cue("always")
   ),
   tar_target(
