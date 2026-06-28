@@ -55,6 +55,14 @@ data_targets <- tar_plan(
   tar_target(
     name = jpeg_random_test_images,
     command = sample(jpeg_image_paths, 10)
+  ),
+  tar_target(
+    name = test_image_paths,
+    command = retrieve_test_images(jpeg_random_test_images)
+  ),
+  tar_target(
+    name = test_expected_responses,
+    command = create_expected_response()
   )
 )
 
@@ -93,7 +101,7 @@ llm_targets <- tar_plan(
 qwen_local_targets <- tar_plan(
   tar_target(
     name = local_qwen_model,
-    command = get_llm_name(src = "qwen3-vl:235b"),
+    command = get_llm_name(src = "qwen2.5vl"),
     cue = tar_cue("always")
   ),
   tar_target(
@@ -101,6 +109,7 @@ qwen_local_targets <- tar_plan(
     command = ellmer::chat_ollama(
       system_prompt = task_extraction_prompt, 
       model = local_qwen_model,
+      params = list(reasoning_effort = "low"),
       echo = "none"
     )
   ),
@@ -293,6 +302,47 @@ glm_targets <- tar_plan(
 )
 
 
+## medgemma extraction targets ----
+medgemma_targets <- tar_plan(
+  tar_target(
+    name = local_medgemma_model,
+    command = get_llm_name(src = "medgemma"),
+    cue = tar_cue("always")
+  ),
+  tar_target(
+    name = medgemma_extractor,
+    command = ellmer::chat_ollama(
+      system_prompt = task_extraction_prompt, 
+      model = local_medgemma_model,
+      echo = "none"
+    )
+  ),
+  tar_target(
+    name = medgemma_test_extraction,
+    command = llm_extract_data(
+      extractor = medgemma_extractor,
+      image = jpeg_random_test_images,
+      type = extraction_output_type,
+      model = local_medgemma_model,
+      ollama = TRUE,
+      test_mode = TRUE
+    ),
+    pattern = map(jpeg_random_test_images)
+  ),
+  tar_target(
+    name = medgemma_extraction,
+    command = llm_extract_data(
+      extractor = medgemma_extractor,
+      image = jpeg_image_paths,
+      type = extraction_output_type,
+      model = local_medgemma_model,
+      ollama = TRUE
+    ),
+    pattern = map(jpeg_image_paths)
+  )
+)
+
+
 ##  claude model targets ----
 claude_targets <- tar_plan(
   claude_model = "claude-opus-4-8",
@@ -397,7 +447,11 @@ output_targets <- tar_plan(
     command = output_test_results(
       extraction_test_results = list(
         gemma = gemma_test_extraction,
-        qwen = qwen_test_extraction
+        qwen = qwen_test_extraction,
+        deepseek = deepseek_test_extraction,
+        llava = llava_test_extraction,
+        glm = glm_test_extraction,
+        medgemma = medgemma_test_extraction
       ),
       output_file = "tests/extraction_ollama_test_results.xlsx",
       overwrite = TRUE
