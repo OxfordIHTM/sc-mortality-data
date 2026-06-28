@@ -52,7 +52,7 @@ llm_extract_data <- function(extractor,
   if (test_mode) {
     out <- tibble::tibble(
       out,
-      image = image
+      image = basename(image)
     )
   }
 

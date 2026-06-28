@@ -10,7 +10,7 @@ contact:
     email: ernest@guevarra.io
     family-names: Guevarra
     given-names: Ernest
-message: "If you use the code, text, or data in this repository, please cite it as follows:"
+message: "If you use the code or text in this repository, please cite it as follows:"
 title: "Seychelles mortality data extract, transform, and load (ETL) workflow"
 repository-code: https://github.com/OxfordIHTM/sc-mortality-data
 license: GPL-3.0-or-later
