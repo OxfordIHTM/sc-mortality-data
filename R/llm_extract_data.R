@@ -8,12 +8,13 @@ llm_extract_data <- function(extractor,
                              type,
                              model, 
                              ollama = FALSE, 
-                             max_tries = 3L,
-                             test_mode = FALSE) {
+                             max_tries = 3L) {
+  ## Extract the model provider name ----
   model <- stringr::str_extract(
     string = model, pattern = "gemini|claude|gpt|qwen|llama"
   )
 
+  ## Build syntax for image upload based on the model provider----
   if (ollama) {
     image_upload <- "ellmer::content_image_file(image)"
   } else {
@@ -26,12 +27,16 @@ llm_extract_data <- function(extractor,
     }
   }
 
+  ## Upload the image ----
+  image_file <- eval(parse(image_upload))
+
+  ## Cycle through attempts to extract the data ----
   for (attempt in seq_len(max_tries)) {
     extractor <- extractor$set_turns(list())
     
     out <- tryCatch(
       extractor$chat_structured(
-        eval(parse(text = image_upload)),
+        image_file,
         type = type
       ),
       error = function(e) {
@@ -49,13 +54,13 @@ llm_extract_data <- function(extractor,
     )
   }
 
-  if (test_mode) {
-    out <- tibble::tibble(
-      out,
-      image = basename(image)
-    )
-  }
+  ## Add image name to the output ----
+  out <- tibble::tibble(
+    out,
+    image = basename(image)
+  )
 
+  ## Return the output ----
   out
 }
 
