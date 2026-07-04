@@ -15,7 +15,7 @@ title: "Seychelles mortality data extract, transform, and load (ETL) workflow"
 repository-code: https://github.com/OxfordIHTM/sc-mortality-data
 license: GPL-3.0-or-later
 date-released: 2026-06-27
-version: 0.0.0.9000
+version: 0.0.0.9001
 # identifiers:
 #   - type: doi
 #     value: 10.5281/zenodo.20782175
