@@ -169,6 +169,52 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
+    "arsenal": {
+      "Package": "arsenal",
+      "Version": "3.7.1",
+      "Source": "Repository",
+      "Title": "An Arsenal of 'R' Functions for Large-Scale Statistical Summaries",
+      "Date": "2026-07-01",
+      "Authors@R": "c( person(\"Ethan\", \"Heinzen\", email = \"heinzen.ethan@mayo.edu\", role = c(\"aut\", \"cre\")), person(\"Jason\", \"Sinnwell\", role=\"aut\"), person(\"Elizabeth\", \"Atkinson\", role=\"aut\"), person(\"Tina\", \"Gunderson\", role=\"aut\"), person(\"Gregory\", \"Dougherty\", role=\"aut\"), person(\"Patrick\", \"Votruba\", role=\"ctb\"), person(\"Ryan\", \"Lennon\", role=\"ctb\"), person(\"Andrew\", \"Hanson\", role=\"ctb\"), person(\"Krista\", \"Goergen\", role=\"ctb\"), person(\"Emily\", \"Lundt\", role=\"ctb\"), person(\"Brendan\", \"Broderick\", role=\"ctb\"), person(\"Maddie\", \"McCullough\", role=\"art\") )",
+      "Description": "An Arsenal of 'R' functions for large-scale statistical summaries, which are streamlined to work within the latest reporting tools in 'R' and 'RStudio' and which use formulas and versatile summary statistics for summary tables and models. The primary functions include tableby(), a Table-1-like summary of multiple variable types 'by' the levels of one or more categorical variables; paired(), a Table-1-like summary of multiple variable types paired across two time points; modelsum(), which performs simple model fits on one or more endpoints for many variables (univariate or adjusted for covariates); freqlist(), a powerful frequency table across many categorical variables; comparedf(), a function for comparing data.frames; and write2(), a function to output tables to a document.",
+      "Suggests": [
+        "broom (>= 0.7.1)",
+        "magrittr",
+        "rmarkdown",
+        "testthat",
+        "xtable",
+        "pander",
+        "survival (>= 2.43-1)",
+        "coin",
+        "pROC",
+        "MASS",
+        "splines",
+        "rpart",
+        "yaml",
+        "stddiff",
+        "geepack"
+      ],
+      "Depends": [
+        "R (>= 3.4.0)",
+        "stats (>= 3.4.0)"
+      ],
+      "Imports": [
+        "knitr (>= 1.29)",
+        "utils (>= 3.4.0)",
+        "glue"
+      ],
+      "URL": "https://github.com/mayoverse/arsenal, https://cran.r-project.org/package=arsenal, https://mayoverse.github.io/arsenal/",
+      "BugReports": "https://github.com/mayoverse/arsenal/issues",
+      "VignetteBuilder": "knitr",
+      "License": "GPL (>= 2)",
+      "LazyData": "true",
+      "Encoding": "UTF-8",
+      "Config/roxygen2/version": "8.0.0",
+      "NeedsCompilation": "no",
+      "Author": "Ethan Heinzen [aut, cre], Jason Sinnwell [aut], Elizabeth Atkinson [aut], Tina Gunderson [aut], Gregory Dougherty [aut], Patrick Votruba [ctb], Ryan Lennon [ctb], Andrew Hanson [ctb], Krista Goergen [ctb], Emily Lundt [ctb], Brendan Broderick [ctb], Maddie McCullough [art]",
+      "Maintainer": "Ethan Heinzen <heinzen.ethan@mayo.edu>",
+      "Repository": "CRAN"
+    },
     "askpass": {
       "Package": "askpass",
       "Version": "1.2.1",
@@ -3162,6 +3208,34 @@
       "NeedsCompilation": "yes",
       "Author": "Charlie Gao [aut, cre] (ORCID: <https://orcid.org/0000-0002-0750-061X>), Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>), Hibiki AI Limited [cph], The Mbed TLS Contributors [cph] (SHA-3, SHA-256 and base64 code from Mbed TLS), Red Hat, Inc. [cph] (SipHash code from c-siphash), Luke Dashjr [cph] (Base58 code from libbase58)",
       "Maintainer": "Charlie Gao <charlie.gao@posit.co>",
+      "Repository": "CRAN"
+    },
+    "stringdist": {
+      "Package": "stringdist",
+      "Version": "0.9.17",
+      "Source": "Repository",
+      "Maintainer": "Mark van der Loo <mark.vanderloo@gmail.com>",
+      "License": "GPL-3",
+      "Title": "Approximate String Matching, Fuzzy Text Search, and String Distance Functions",
+      "Type": "Package",
+      "LazyLoad": "yes",
+      "Authors@R": "c( person(\"Mark\", \"van der Loo\", role=c(\"aut\",\"cre\") , email=\"mark.vanderloo@gmail.com\" , comment= c(ORCID=\"0000-0002-9807-4686\")) , person(\"Jan\", \"van der Laan\", role=\"ctb\") , person(\"R Core Team\",\"\"     , role=\"ctb\") , person(\"Nick\",\"Logan\"       , role=\"ctb\") , person(\"Chris\",\"Muir\"       , role=\"ctb\") , person(\"Johannes\", \"Gruber\" , role=\"ctb\") , person(\"Brian\",\"Ripley\"     , role=\"ctb\"))",
+      "Description": "Implements an approximate string matching version of R's native 'match' function. Also offers fuzzy text search based on various string distance measures. Can calculate various string distances based on edits (Damerau-Levenshtein, Hamming, Levenshtein, optimal sting alignment), qgrams (q- gram, cosine, jaccard distance) or heuristic metrics (Jaro, Jaro-Winkler). An implementation of soundex is provided as well. Distances can be computed between character vectors while taking proper care of encoding or between integer vectors representing generic sequences. This package is built for speed and runs in parallel by using 'openMP'. An API for C or C++ is exposed as well. Reference: MPJ van der Loo (2014) <doi:10.32614/RJ-2014-011>.",
+      "Depends": [
+        "R (>= 2.15.3)"
+      ],
+      "URL": "https://github.com/markvanderloo/stringdist",
+      "BugReports": "https://github.com/markvanderloo/stringdist/issues",
+      "Suggests": [
+        "tinytest"
+      ],
+      "Imports": [
+        "parallel"
+      ],
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "yes",
+      "Author": "Mark van der Loo [aut, cre] (ORCID: <https://orcid.org/0000-0002-9807-4686>), Jan van der Laan [ctb], R Core Team [ctb], Nick Logan [ctb], Chris Muir [ctb], Johannes Gruber [ctb], Brian Ripley [ctb]",
       "Repository": "CRAN"
     },
     "stringi": {
