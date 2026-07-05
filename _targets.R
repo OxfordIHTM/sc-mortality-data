@@ -46,7 +46,7 @@ data_targets <- tar_plan(
   # ),
   tar_target(
     name = jpeg_random_test_images,
-    command = get_testing_images()
+    command = get_testing_images(jpeg_image_paths)
   ),
   tar_target(
     name = test_image_paths,

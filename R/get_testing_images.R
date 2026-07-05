@@ -15,7 +15,7 @@
 #' @export
 #' 
 
-get_testing_images <- function() {
+get_testing_images <- function(jpeg_image_paths) {
   c(
     "data-raw/jpg/C.D PRASLIN-LA DIGUE 1941-1945_02.jpeg",
     "data-raw/jpg/C.D SOUTH MAHE 1941-1945_19.jpeg",
