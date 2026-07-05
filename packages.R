@@ -4,9 +4,6 @@
 library(targets)
 library(tarchetypes)
 library(here)
-library(rmarkdown)
-library(knitr)
-library(kableExtra)
 library(dplyr)
 library(tidyr)
 library(openxlsx)
@@ -32,3 +29,11 @@ library(magick)
 library(googledrive)
 library(googlesheets4)
 library(gargle)
+
+
+## Packages for self-publishing ---
+library(quarto)
+library(rmarkdown)
+library(knitr)
+library(kableExtra)
+library(oxthema)

@@ -28,7 +28,7 @@ llm_extract_data <- function(extractor,
   }
 
   ## Upload the image ----
-  image_file <- eval(parse(image_upload))
+  image_file <- eval(parse(text = image_upload))
 
   ## Cycle through attempts to extract the data ----
   for (attempt in seq_len(max_tries)) {
@@ -55,10 +55,10 @@ llm_extract_data <- function(extractor,
   }
 
   ## Add image name to the output ----
-  out <- tibble::tibble(
-    out,
-    image = basename(image)
-  )
+  out <- out |>
+    dplyr::mutate(
+      image = basename(image)
+    )
 
   ## Return the output ----
   out

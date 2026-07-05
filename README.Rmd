@@ -39,7 +39,7 @@ sc-mortality-data
     |-- reports/
     |-- tests/
     |-- .Rprofile
-    |-- _targets.R
+    |-- _targets*.R
     |-- packages.R
     |-- renv.lock
 ```
@@ -81,7 +81,7 @@ The `data-raw` folder is also where the workflow stores converted images of the 
 
 * `.Rprofile` file is a project R profile generated when initiating `renv` for the first time. This file is run automatically every time R is run within this project, and `renv` uses it to configure the R session to use the `renv` project library.
 
-* `_targets.R` file defines the steps in the workflow's data ingest, data processing, data analysis, and reporting pipeline.
+* `_targets*.R` files define the steps in the workflow's data ingest, data processing, data analysis, and reporting pipeline.
 
 * `packages.R` file lists out all R package dependencies required by the workflow.
 
@@ -122,7 +122,7 @@ For this project, we used a **Mac Studio M3 Ultra with a 32-core CPU, 80-core GP
 
 ### R version
 
-This project is built using `R 4.6.0`. To manage R versions, it is recommended to use [`rig`](https://github.com/r-lib/rig) - an R installation manager - to be able to install multiple versions of R and switch between them as needed.
+This project is built using `R 4.6.1`. To manage R versions, it is recommended to use [`rig`](https://github.com/r-lib/rig) - an R installation manager - to be able to install multiple versions of R and switch between them as needed.
 
 ### Clone the repository
 
