@@ -32,3 +32,56 @@ all_targets <- function(env = parent.env(environment()),
   }
   return(out)
 }
+
+
+#'
+#' Turn a comparedf object into the extraction-scoring metrics
+#'
+
+score_comparedf <- function(cd, target, current, by) {
+  s   <- summary(cd)
+  obs <- s$obs.table
+
+  compared_vars <- setdiff(intersect(names(target), names(current)), by)
+  n_vars     <- length(compared_vars)
+
+  n_missing  <- sum(obs$version == "x")   # target rows the model missed
+  n_extra    <- sum(obs$version == "y")   # rows the model invented
+  n_matched  <- nrow(target) - n_missing  # == nrow(current) - n_extra
+
+  n_celldiff <- arsenal::n.diffs(cd)
+  expected   <- nrow(target)  * n_vars
+  produced   <- nrow(current) * n_vars
+  tp         <- n_matched * n_vars - n_celldiff
+
+  recall     <- if (expected > 0) tp / expected else NA_real_
+  precision  <- if (produced > 0) tp / produced else NA_real_
+  f1 <- if (isTRUE(precision + recall > 0)) {
+    2 * precision * recall / (precision + recall)
+  } else {
+    0
+  }
+  
+  per_field <- dplyr::mutate(
+    s$diffs.byvar.table,
+    column   = var.x,
+    n_diff   = n,
+    accuracy = (n_matched - n) / n_matched,
+    .keep = "none"
+  )
+
+  list(
+    precision       = precision,
+    recall          = recall,
+    f1              = f1,
+    tp              = tp,
+    expected        = expected,
+    produced        = produced,
+    n_matched_rows  = n_matched,
+    cell_mismatches = arsenal::diffs(cd),        # var.x, values.x/y, + keys
+    missing_rows    = obs[obs$version == "x", ], # hurt recall
+    extra_rows      = obs[obs$version == "y", ], # hurt precision
+    per_field       = per_field,                 # new: accuracy by field
+    comparedf       = cd                         # keep raw object for reporting
+  )
+}
