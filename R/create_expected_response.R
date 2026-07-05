@@ -1,6 +1,16 @@
 #'
 #' Create expected tabular output for extracted data from test images.
 #' 
+#' This creates a tibble containing the expected tabular output for the
+#' extracted data from the test images. The tibble includes columns for
+#' `record_number`, `date`, `sex`, `age`, `age_unit`, and `cause_of_death` that
+#' were manually extracted from the test images. The `image` column indicates
+#' the source image from which the data was extracted.
+#' 
+#' @returns A tibble containing the expected tabular output for the extracted.
+#' 
+#' @export
+#' 
 
 create_expected_response <- function() {
   tibble::tribble(
